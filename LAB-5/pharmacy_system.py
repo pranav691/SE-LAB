@@ -7,6 +7,7 @@ conn = sqlite3.connect(":memory:")
 stock = {}
 prescriptions = []
 
+
 def setup_database():
     cur = conn.cursor()
     cur.execute("CREATE TABLE patients (id TEXT, name TEXT, allergy TEXT)")
@@ -15,10 +16,12 @@ def setup_database():
     cur.execute("INSERT INTO patients VALUES ('P3', 'Meena', 'ibuprofen')")
     conn.commit()
 
+
 def find_patient(name):
     cur = conn.cursor()
     query = "SELECT id, allergy FROM patients WHERE name = ?"
     return cur.execute(query, (name,)).fetchall()
+
 
 def add_stock(drug, units, expiry, batch_log=None):
     if units <= 0:
@@ -33,6 +36,7 @@ def add_stock(drug, units, expiry, batch_log=None):
     }
     batch_log.append((drug, units))
     return len(batch_log)
+
 
 def dispense(patient_name, drug, units):
     if units <= 0:
@@ -69,6 +73,7 @@ def dispense(patient_name, drug, units):
     )
     return True
 
+
 def expiring_soon(days=30):
     soon = []
     for d in stock:
@@ -77,9 +82,11 @@ def expiring_soon(days=30):
             soon.append(d)
     return soon
 
+
 def export_prescriptions(file="prescriptions.json"):
     with open(file, "w", encoding="utf-8") as output_file:
         json.dump(prescriptions, output_file, indent=4)
+
 
 def load_stock(file="stock.json"):
     global stock
@@ -94,6 +101,7 @@ def load_stock(file="stock.json"):
         return
 
     stock = loaded_stock
+    
 
 def print_stock():
     print("Pharmacy Stock")
@@ -105,6 +113,7 @@ def print_stock():
             "units, expires",
             details["expiry"],
         )
+        
 
 def main():
     setup_database()
@@ -122,5 +131,6 @@ def main():
     print("Expiring within 30 days:", expiring_soon())
     export_prescriptions()
     print_stock()
+
 
 main()
