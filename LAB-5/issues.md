@@ -15,6 +15,6 @@ File analyzed: `pharmacy_system.py`
 | Inconsistent medicine-name and allergy comparison | Logic Bug | 32, 75 | The allergy check uses a case-sensitive substring comparison. The medicine name `ibuprofen` does not consistently match stock entry `Ibuprofen` in other operations. | Normalize medicine names and allergy values before comparing them, and use exact matching. |
 | Non-standard function naming | Code Style | 61 | `printStock()` does not follow the conventional `snake_case` naming style for Python functions. | Rename it to `print_stock()` and update its call sites. |
 | Unused import | Code Quality | 3 | The `os` module is imported but not used in the program. | Remove the unused import. |
-| Inconsistent spacing and separation between top-level definitions | Code Style | 6–11, 17–19, 22–24, 27–29, 39–41, 47–49, 52–54, 59–61, 64–66, 81–83 | Several top-level definitions do not have the recommended blank-line separation, and the file may have additional formatting violations. | Apply the spacing and formatting corrections reported by Flake8. |
+
 
 
